@@ -1,0 +1,9 @@
+#!/bin/bash
+
+state=$(xset -q | sed -n 's/^.*Caps Lock:\s*\(\S*\).*$/\1/p')
+
+if [ $state = "on" ];then
+	echo 'CAPS LOCK'
+else
+	echo ''
+fi

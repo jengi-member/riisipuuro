@@ -1,0 +1,118 @@
+#!/bin/bash
+
+screens=$(xrandr)
+
+mons=$(echo "$screens" | awk '/ connected/ {print $1}')
+
+primary=$(echo "$mons" | dmenu -p "primary screen:")
+
+if [ "$primary" = "" ];then
+	exit 0
+fi
+
+next=$(echo "$mons" | sed "/$primary/d" | head -n 1)
+
+if [ "$next" = "" ];then
+	settings_primary=$(echo "$screens" | awk -v var=$primary -v var2="normal" '$0~var,$1~var2' | sed -e 1d -e '$d' -e "/Hz/d")
+else
+	settings_primary=$(echo "$screens" | awk -v var=$primary -v var2=$next '$0~var,$1~var2' | sed -e 1d -e '$d' -e "/Hz/d")
+fi
+
+res_primary=$(echo "$settings_primary" | awk '{print $1}' | dmenu -p "resolution for $primary:")
+
+if [ "$res_primary" = "" ];then
+	exit 0
+fi
+
+rate_primary=$(echo $(echo "$settings_primary" | grep $res_primary) | sed 's/[^ ]* //' | sed -e 's/*//' -e 's/+//' | sed 's/ /\n/g' | sort -nr | head -n1)
+
+execute="xrandr --output $primary --primary --mode $res_primary --rate $rate_primary --pos 0x0 --rotate normal"
+
+length=$(echo "$mons" | wc -l)
+declare -i length
+
+i=2
+declare -i i
+
+while [ $length -ge $i ]
+do
+	i=i+1
+	current=$(echo "$mons" | head -n 1)
+	if [ "$current" = "$primary" ];then
+		current=$(echo $mons | awk '{print $2}')
+	fi
+
+	mons=$(echo "$mons" | sed "/$current/d")
+
+	enabl=$(echo -e "(Y)esy\n(N)on" | dmenu -c -p "Enable $current?")
+
+	if [ "$enabl" = "" ];then
+		exit 0
+	elif [ "$enabl" = "(Y)esy" ];then
+
+		next=$(echo "$mons" | head -n 1)
+		
+		if [ "$next" = "" ];then
+			next="a"
+		fi
+		
+		settings_current=$(echo "$screens" | awk -v var=$current -v var2=$next '$0~var,$1~var2' | sed -e 1d -e '$d' -e "/Hz/d")
+
+		res_current=$(echo "$settings_current" | awk '{print $1}')
+
+		side="(L)eftl\n(R)ightr\n(U)pu\n(D)ownd"
+
+		if ! [ "$(echo "$res_current" | grep $res_primary)" = "" ];then
+			side=$side"\n(M)irrorm"
+		fi
+
+		side=$(echo -e "$side" | dmenu -c -p "$current is on which side of $primary:")
+		
+		if [ "$side" = "(M)irrorm" ];then
+			res_current=$res_primary
+		elif [ "$side" = "" ];then
+			exit 0
+		else
+			res_current=$(echo "$res_current" | dmenu -p "resolution for $current:")
+		fi
+		
+		if [ "$res_current" = "" ];then
+			exit 0
+		fi
+		
+		rate_current=$(echo $(echo "$settings_current" | grep $res_current) | sed 's/[^ ]* //' | sed -e 's/*//' -e 's/+//' | sed 's/ /\n/g' | sort -nr | head -n1)
+		sameas=''
+		
+		if [ "$side" = "(L)eftl" ];then
+			pos='-'$(echo $res_current | awk -F "x" '{print $1}')'x0'
+		elif [ "$side" = "(R)ightr" ];then
+			pos=$(echo $res_primary | awk -F "x" '{print $1}')'x0'
+		elif [ "$side" = "(U)pu" ];then
+			pos='0x-'$(echo $res_current | awk -F "x" '{print $2}')
+		elif [ "$side" = "(D)ownd" ];then
+			pos='0x'$(echo $res_primary | awk -F "x" '{print $2}')
+		elif [ "$side" = "(M)irrorm" ];then
+			pos='0x0'
+			sameas=' --same-as '$primary
+		else
+			exit 0
+		fi
+		
+		execute=$execute' --output '$current' --mode '$res_current' --rate '$rate_current' --pos '$pos' --rotate normal'$sameas
+		
+	else
+		execute=$execute' --output '$current' --off'
+	fi
+done
+
+$execute
+
+if [ "$(echo -e "(Y)esy\n(N)on" | dmenu -c -p "Save to file?")" = "(Y)esy" ];then
+	cd ~/
+	if ![ -d "~/.config" ];then
+		mkdir ~/.config
+	fi
+	cd ~/.config
+	touch xrandr_set
+	echo -e "$execute" > xrandr_set
+fi

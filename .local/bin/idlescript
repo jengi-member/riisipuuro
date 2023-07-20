@@ -1,0 +1,14 @@
+#!/bin/sh
+
+sleep 0.5
+sudo zzz
+
+# Wanted trigger timeout in milliseconds.
+IDLE_TIME=$((10*1000))
+
+while sleep $(((IDLE_TIME+999)/1000)); do
+	idle=$(xprintidle)
+	if [ $idle -ge $IDLE_TIME ]; then
+		sudo zzz
+	fi
+done

@@ -1,0 +1,23 @@
+#!/bin/sh
+
+cd ~/.local/share/applications
+
+game=$(for file in *.desktop
+do
+	if [ "steam" = "$(grep -v '^\s*$' "$file" | grep Exec= | cut -c6- | cut -c -5)" ]
+	then
+		echo -n
+		grep -v '^\s*$' "$file" | grep Name= | cut -c6-		
+	fi
+done | dmenu -i -wd 410)
+
+for file in *.desktop
+do
+	if [ "steam" = "$(grep -v '^\s*$' "$file" | grep Exec= | cut -c6- | cut -c -5)" ]
+	then
+		if [ "$game" = "$(grep -v '^\s*$' "$file" | grep Name= | cut -c6-)" ]
+		then
+			steam $(grep -v '^\s*$' "$file" | grep Exec= | cut -c12-)
+		fi
+	fi
+done

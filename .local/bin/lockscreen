@@ -1,0 +1,7 @@
+#!/bin/bash
+
+idlescript &
+betterlockscreen --lock blur
+kill %1
+
+pkill -RTMIN+4 dwmblocks
