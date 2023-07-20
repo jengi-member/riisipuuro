@@ -1,0 +1,5 @@
+include "/usr/share/themes/Breeze/gtk-2.0/gtkrc"
+include "/home/user/.themes/blue-grey/gtk-2.0/gtkrc
+
+gtk-theme-name="blue-grey"
+
