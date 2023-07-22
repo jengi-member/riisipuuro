@@ -9,5 +9,5 @@ elif [ "$option" = "(D) Shutdownd" ];then
 elif [ "$option" = "(R)ebootr" ];then
 	sudo reboot
 elif [ "$option" = "(Q)uit Xorgq" ];then
-	killall Xorg
+	pkill Xorg
 fi

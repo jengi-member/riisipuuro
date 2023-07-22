@@ -1,10 +1,18 @@
 #!/bin/bash
 temp=$(sensors | awk '/edge:/ {print $2}')
+
+if [ "$temp" = '' ]; then
+	temp=$(sensors | awk '/Core-0:/ {print $2}')
+fi
+
+if [ "$temp" = '' ]; then
+	temp=$(sensors | awk '/Core 0:/ {print $3}')
+fi
 #temp="${temp:1}"
 #temp="${temp/\.}"
 #temp="${temp/0}"
 
-value=${temp%??}
+value=${temp%????}
 
 declare -i value
 
