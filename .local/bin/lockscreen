@@ -1,7 +1,9 @@
 #!/bin/bash
 
 idlescript & pid1=$!
-sxlock -u 'type password to unlock'
+#convert regular/* -fill "#212121" -colorize 90% -blur 0x8 blur.png
+sxlock -u 'type password to unlock' -f monospace-24 -i ~/.config/wallpaper/blur.png
+lockscript
 kill $pid1
 
 pkill -RTMIN+4 dwmblocks
