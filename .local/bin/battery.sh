@@ -35,7 +35,6 @@ declare -i value
 if [ "$charging" = "Charging" ];then
    icon='󰂄'
 elif [ $value -ge 91 ];then
-if [ $value -ge 91 ];then
 	icon='󰁹'
 elif [ $value -ge 82 ];then
 	icon='󰂂'
