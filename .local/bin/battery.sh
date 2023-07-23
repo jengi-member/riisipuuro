@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#bat=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep 'percentage' | awk '/^/ {print $2}')
-#bat=$(cat /sys/class/power_supply/BAT0/capacity)
-
 if ! [[ -d "/sys/class/power_supply/BAT0" ]]
 then
 	echo ''
@@ -11,26 +8,13 @@ fi
 
 charging=$(cat /sys/class/power_supply/BAT0/status)
 
-#bat=$bat'%'
-
-bat=$(echo "scale=3 ; $(cat /sys/class/power_supply/BAT0/energy_now) / $(cat /sys/class/power_supply/BAT0/energy_full)" | bc)
+bat=$(echo "scale=3 ; $(cat /sys/class/power_supply/BAT0/charge_now) / $(cat /sys/class/power_supply/BAT0/charge_full)" | bc)
 
 bat=${bat:1:2}.${bat:3}
 
 value=${bat%??}
-declare -i value
 
-#if [ $value -ge 83 ];then
-#	icon=''
-#elif [ $value -ge 50];then
-#	icon=''
-#elif [ $value -ge 17];then
-#	icon=''
-#else
-#	icon=''
-#fi
-#
-#echo $bat'%'
+declare -i value
 
 if [ "$charging" = "Charging" ];then
    icon='󰂄'
@@ -58,9 +42,7 @@ else
 	icon='󰂎'
 fi
 
+echo $icon' '$bat'%'
+
 # alternative icons
 #󰂎󰁺󰁻󰁼󰁽󰁾󰁿󰂀󰂁󰂂󰁹󰂃󰂄󱟦󰂑
-#
-#
-#
-#

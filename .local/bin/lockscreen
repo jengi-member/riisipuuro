@@ -1,7 +1,7 @@
 #!/bin/bash
 
-idlescript &
-betterlockscreen --lock blur
-kill %1
+idlescript & pid1=$!
+sxlock
+kill $pid1
 
 pkill -RTMIN+4 dwmblocks
