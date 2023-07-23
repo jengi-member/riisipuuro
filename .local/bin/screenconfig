@@ -112,4 +112,4 @@ fi
 
 $execute
 
-feh --bg-center ~/.config/wallpaper/regular*
+feh --bg-fill ~/.config/wallpaper/regular*

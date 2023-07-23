@@ -107,7 +107,7 @@ done
 
 $execute
 
-feh --bg-center ~/.config/wallpaper/regular/*
+feh --bg-fill ~/.config/wallpaper/regular/*
 
 if [ "$(echo -e "(Y)esy\n(N)on" | dmenu -c -p "Save to file?")" = "(Y)esy" ];then
 	cd ~/

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-feh --bg-center ~/.config/wallpaper/regular/*
+feh --bg-fill ~/.config/wallpaper/regular/*
 
 # fix geogebra
 IRONIC_WM_NAME="LG3D"
