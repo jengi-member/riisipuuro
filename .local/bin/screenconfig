@@ -111,3 +111,5 @@ if [ -1 -ge "$max_x" ] || [ -1 -ge "$max_y" ];then
 fi
 
 $execute
+
+feh --bg-center ~/.config/wallpaper/*

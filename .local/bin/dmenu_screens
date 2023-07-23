@@ -107,6 +107,8 @@ done
 
 $execute
 
+feh --bg-center ~/.config/wallpaper/*
+
 if [ "$(echo -e "(Y)esy\n(N)on" | dmenu -c -p "Save to file?")" = "(Y)esy" ];then
 	cd ~/
 	if ![ -d "~/.config" ];then
