@@ -2,7 +2,6 @@
 
 idlescript & pid1=$!
 sxlock -u 'type password to unlock' -f monospace-24 -i ~/.config/wallpaper/blur.png
-lockscript
 kill $pid1
 
 pkill -RTMIN+4 dwmblocks
