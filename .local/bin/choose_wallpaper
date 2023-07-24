@@ -1,7 +1,17 @@
 #!/bin/bash
 
 st -c floating -e ranger --choosefile=/tmp/new_wallpaper
+
+if ! [[ -f "/tmp/new_wallpaper" ]]
+then
+	exit 0
+fi
+
 path=$(cat /tmp/new_wallpaper)
+
+if [ "$(identify $path)" = '' ];then
+	exit 0
+fi
 
 if ! [[ -d "$HOME/.config/wallpaper" ]]
 then
@@ -20,4 +30,5 @@ rm /tmp/new_wallpaper
 feh --bg-fill ~/.config/wallpaper/regular/*
 
 cd ~/.config/wallpaper
+rm blur*.png
 convert regular/* -fill "#212121" -colorize 90% -blur 0x8 blur.png
