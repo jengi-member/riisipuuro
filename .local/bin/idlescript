@@ -6,9 +6,10 @@ sudo zzz
 # Wanted trigger timeout in milliseconds.
 IDLE_TIME=$((10*1000))
 
-while sleep $(((IDLE_TIME+999)/1000)); do
+while sleep 1; do
 	idle=$(xprintidle)
 	if [ $idle -ge $IDLE_TIME ]; then
+		xdotool key XF86WakeUp
 		sudo zzz
 	fi
 done
