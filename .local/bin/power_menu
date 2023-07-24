@@ -3,7 +3,7 @@
 option=$(echo -e "(S)uspends\n(D) Shutdownd\n(R)ebootr\n(Q)uit Xorgq" | dmenu -c -p "What do you want to do?")
 
 if [ "$option" = "(S)uspends" ];then
-	lockscreen
+	screenlockscript
 elif [ "$option" = "(D) Shutdownd" ];then
 	sudo shutdown -h now
 elif [ "$option" = "(R)ebootr" ];then
