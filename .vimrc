@@ -1,6 +1,7 @@
 set number relativenumber
 syntax on
 set clipboard=unnamedplus
+hi Visual ctermbg=0 term=reverse cterm=reverse guibg=Grey
 
 set tabstop=4
 set shiftwidth=4
