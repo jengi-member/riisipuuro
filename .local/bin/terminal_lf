@@ -1,0 +1,2 @@
+#!/bin/bash
+exec env START_LF=true alacritty -e zsh && { eval \"$START_LF\"; unset START_LF; }
