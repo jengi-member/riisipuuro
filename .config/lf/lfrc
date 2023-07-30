@@ -114,7 +114,7 @@ cmd bulkrename ${{
 }}
 
 cmd clone ${{
-	setsid -f st_lf >/dev/null 2>&1
+	setsid -f terminal_lf >/dev/null 2>&1
 }}
 
 # Bindings
