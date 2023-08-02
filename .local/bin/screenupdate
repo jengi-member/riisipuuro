@@ -1,0 +1,7 @@
+#!/bin/bash
+
+id=$(xprop -root | grep "_NET_SUPPORTING_WM_CHECK(WINDOW):" | awk '/^/ {print $5}')
+
+function update { while true; do read && "$@" ; done; }
+
+xev -id $id -event randr -1 | update screenconfig
