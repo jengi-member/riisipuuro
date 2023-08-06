@@ -3,4 +3,3 @@ picom &
 dunst &
 screenupdate &
 clockupdate &
-dwmblocks &

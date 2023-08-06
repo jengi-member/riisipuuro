@@ -17,6 +17,8 @@ else
     xprop -root -f _NET_WM_NAME 8s -set _NET_WM_NAME "$IRONIC_WM_NAME"
 fi
 
+dwmblocks &
+
 sleep 5
 
 pkill -RTMIN+1 dwmblocks

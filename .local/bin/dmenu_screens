@@ -105,16 +105,24 @@ do
 	fi
 done
 
+cd ~/
+if ![ -d "~/.config" ];then
+	mkdir ~/.config
+fi
+cd ~/.config
+touch xrandr_set
+echo -e "$execute" > xrandr_set
+
 $execute
 
 feh --bg-fill ~/.config/wallpaper/regular/*
 
-if [ "$(echo -e "(Y)esy\n(N)on" | dmenu -c -p "Save to file?")" = "(Y)esy" ];then
-	cd ~/
-	if ![ -d "~/.config" ];then
-		mkdir ~/.config
-	fi
-	cd ~/.config
-	touch xrandr_set
-	echo -e "$execute" > xrandr_set
-fi
+#if [ "$(echo -e "(Y)esy\n(N)on" | dmenu -c -p "Save to file?")" = "(Y)esy" ];then
+#	cd ~/
+#	if ![ -d "~/.config" ];then
+#		mkdir ~/.config
+#	fi
+#	cd ~/.config
+#	touch xrandr_set
+#	echo -e "$execute" > xrandr_set
+#fi
