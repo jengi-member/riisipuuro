@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if ! [ "$(pgrep sxlock)" = "" ];then
+if ! [ "$(pgrep -x sxlock)" = "" ];then
 	exit 0
 fi
 
