@@ -7,8 +7,6 @@ xset s off
 xset s noblank
 xset -dpms
 
-pipewire & pipewire-pulse &
-
 while [ $(pgrep -x pipewire) == "" ]
 do
 	sleep 0.1
