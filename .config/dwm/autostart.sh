@@ -19,6 +19,9 @@ fi
 
 dwmblocks &
 
+# automatically disable touchpad
+touchpad_toggle
+
 sleep 5
 
 pkill -RTMIN+1 dwmblocks

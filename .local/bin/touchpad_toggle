@@ -1,0 +1,16 @@
+#!/bin/bash
+
+id=$(xinput list | grep TouchPad | awk '{print $6}')
+id=${id#*=}
+
+if [ "$id" = "" ]
+then
+	exit 0
+fi
+
+if [ "$(xinput list-props $id | grep Enabled | awk '{print $4}')" = "1" ]
+then
+	xinput disable 10
+else
+	xinput enable 10
+fi
