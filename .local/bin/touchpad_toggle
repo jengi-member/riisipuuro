@@ -11,6 +11,8 @@ fi
 if [ "$(xinput list-props $id | grep Enabled | awk '{print $4}')" = "1" ]
 then
 	xinput disable 10
+	notify-send 'Touchpad Disabled'
 else
 	xinput enable 10
+	notify-send 'Touchpad Enabled'
 fi
