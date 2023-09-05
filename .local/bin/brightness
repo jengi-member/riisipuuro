@@ -1,11 +1,11 @@
 #!/bin/bash
 
-a=$(xbacklight -get)
-if [ "$a" = '' ];then
+if [ "$(light -L | awk -F '/' '{print $2}' | grep backlight)" = '' ];then
 	echo ''
 	exit 0
 fi
 
+a=$(light)
 a=${a%.*}
 
 if [ $a -ge 81 ];then
