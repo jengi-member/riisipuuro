@@ -4,6 +4,8 @@ pkill -RTMIN+2 dwmblocks
 
 sec=$(date +%S)
 
+echo $sec
+
 if [ "$sec" = "20" ]; then
 	pkill -RTMIN+4 dwmblocks
 fi
